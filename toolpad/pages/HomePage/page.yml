@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: page
+spec:
+  id: or6eYpY
+  title: HomePage
+  display: shell
+  content:
+    - component: DataGrid
+      name: dataGrid
+      children: []
+      props:
+        rows:
+          $$jsExpression: |
+            userQuery.data.users
+        columns:
+          - field: id
+            type: number
+          - field: firstName
+            type: string
+          - field: lastName
+            type: string
+          - field: maidenName
+            type: string
+          - field: age
+            type: number
+          - field: gender
+            type: string
+          - field: email
+            type: string
+          - field: phone
+            type: string
+          - field: username
+            type: string
+          - field: password
+            type: string
+          - field: birthDate
+            type: date
+          - field: image
+            type: image
+          - field: bloodGroup
+            type: string
+          - field: height
+            type: number
+          - field: weight
+            type: number
+          - field: eyeColor
+            type: string
+          - field: hair
+            type: json
+          - field: domain
+            type: string
+          - field: ip
+            type: string
+          - field: address
+            type: json
+          - field: macAddress
+            type: string
+          - field: university
+            type: string
+          - field: bank
+            type: json
+          - field: company
+            type: json
+          - field: ein
+            type: string
+          - field: ssn
+            type: string
+          - field: userAgent
+            type: string
+        rowIdField: id
+    - component: Image
+      name: image
+      children: []
+      props:
+        src:
+          $$jsExpression: >
+            (
+              userQuery.data.users.find((u) => u.id === dataGrid.selection?.id) ||
+              userQuery.data.users[0]
+            ).image
+  queries:
+    - name: userQuery
+      query:
+        kind: rest
+        url: https://dummyjson.com/users
+        headers: []
+        method: GET
